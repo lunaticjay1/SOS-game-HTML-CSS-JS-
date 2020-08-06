@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SOS GAME</title>
+    <style>
+      #tab {
+        border-collapse: collapse; /*collapse - in which both the space and the borders between table cells collapse so there is only one border and no space between cells.*/
+
+      }
+      #tab td{     /*Standard cells - contains data (created with the <td> element)*/
+        border: 2px solid white;
+        text-align: center;
+        width: 50px;
+        height: 50px;}
+      div{
+      padding-top:20px;
+      }
+
+      #p1{
+        border-collapse: collapse;
+        margin-left: 200px;
+        margin-right: -150px;
+      }
+      #p1 td{
+        border: 2px solid white;
+        text-align: center;
+        /* width: 5px;
+        height: 20px; */
+      }
+      #p2{
+        border-collapse: collapse;
+        margin-right: 200px;
+        margin-left: -150px;
+      }
+      #p2 td{
+        /* align: right; */
+        border: 2px solid white;
+        text-align: center;
+        /* width: 5px;
+        height: 20px; */
+      }
+      div{
+      padding-top:20px;
+      }
+    #S {
+      padding : 8px 5px;
+      font-size: 10px;
+    }
+    #O {
+      padding :8px 5px;
+      font-size: 10px;
+    }
+    </style>
+  </head>
+<body style="background-color:#000000; color:white; font-size:20px">
+  <header style="color:white; text-align: center;">
+    <h1>SOS GAME </h1>
+  </header>
+  <table align = "left" id = "p1">
+    <tr><th id = 'aa'>&ensp;PLAYER-1&ensp;</th></tr>
+    <tr id =  "pl1"><td></td></tr>
+    <table align = "right" id = "p2">
+    <tr><th id = 'bb'>&ensp;PLAYER-2&ensp;</th></tr>
+    <tr id = "pl2"><td></td></tr>
+    <table align ="center" id = "tab">
+    <tr><td onclick="Select(1,1)"></td><td onclick="Select(1,2)"></td><td onclick="Select(1,3)"></td><td onclick="Select(1,4)"></td><td onclick="Select(1,5)"></td><td onclick="Select(1,6)"></td><td onclick="Select(1,7)"></td><td onclick="Select(1,8)"></td></tr>
+    <tr><td onclick="Select(2,1)"></td><td onclick="Select(2,2)"></td><td onclick="Select(2,3)"></td><td onclick="Select(2,4)"></td><td onclick="Select(2,5)"></td><td onclick="Select(2,6)"></td><td onclick="Select(2,7)"></td><td onclick="Select(2,8)"></td></tr>
+    <tr><td onclick="Select(3,1)"></td><td onclick="Select(3,2)"></td><td onclick="Select(3,3)"></td><td onclick="Select(3,4)"></td><td onclick="Select(3,5)"></td><td onclick="Select(3,6)"></td><td onclick="Select(3,7)"></td><td onclick="Select(3,8)"></td></tr>
+    <tr><td onclick="Select(4,1)"></td><td onclick="Select(4,2)"></td><td onclick="Select(4,3)"></td><td onclick="Select(4,4)"></td><td onclick="Select(4,5)"></td><td onclick="Select(4,6)"></td><td onclick="Select(4,7)"></td><td onclick="Select(4,8)"></td></tr>
+    <tr><td onclick="Select(5,1)"></td><td onclick="Select(5,2)"></td><td onclick="Select(5,3)"></td><td onclick="Select(5,4)"></td><td onclick="Select(5,5)"></td><td onclick="Select(5,6)"></td><td onclick="Select(5,7)"></td><td onclick="Select(5,8)"></td></tr>
+    <tr><td onclick="Select(6,1)"></td><td onclick="Select(6,2)"></td><td onclick="Select(6,3)"></td><td onclick="Select(6,4)"></td><td onclick="Select(6,5)"></td><td onclick="Select(6,6)"></td><td onclick="Select(6,7)"></td><td onclick="Select(6,8)"></td></tr>
+    <tr><td onclick="Select(7,1)"></td><td onclick="Select(7,2)"></td><td onclick="Select(7,3)"></td><td onclick="Select(7,4)"></td><td onclick="Select(7,5)"></td><td onclick="Select(7,6)"></td><td onclick="Select(7,7)"></td><td onclick="Select(7,8)"></td></tr>
+    <tr><td onclick="Select(8,1)"></td><td onclick="Select(8,2)"></td><td onclick="Select(8,3)"></td><td onclick="Select(8,4)"></td><td onclick="Select(8,5)"></td><td onclick="Select(8,6)"></td><td onclick="Select(8,7)"></td><td onclick="Select(8,8)"></td></tr>
+</table>
+<div align="center"><button onclick="history.go(0)">Restart</button></div>
+<script>
+var row = -1;
+var column = -1;
+var a;
+var b;
+var clickCount = 0;
+var player1Score = 0;
+var player2Score = 0;
+var data =[[0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]];
+document.getElementById("aa").style.color = "#126ae6";
+function Select(i, j){
+  if ((row != -1 && column != -1) )
+ {
+   document.getElementById("tab").rows[row-1].cells[column-1].innerHTML = "";
+}
+  row = i;
+  column = j;
+
+  document.getElementById("tab").rows[i-1].cells[j-1].innerHTML = '<class = "btn-group"><button id="S" onclick = "s()">S</button><button id = "O" onclick = "o()">O</button>';
+  for(var c = 1; c<9; c++){
+    for(var d = 1; d<9; d++){
+      if (data[c][d] == 1){
+        document.getElementById("tab").rows[c-1].cells[d-1].innerHTML = "S";
+      }else if (data[c][d] == 2) {
+        document.getElementById("tab").rows[c-1].cells[d-1].innerHTML = "O";
+      }
+
+    }
+  }
+}
+
+function s(){
+if(data[row][column] != 2 && data[row][column] != 1){
+    document.getElementById("tab").rows[row-1].cells[column-1].innerHTML = "S";
+    document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "";
+    data[row][column] = 1;
+    if(!checkS(row, column))updatePlayer();
+  gameOver();
+  }
+}
+function o(){
+if(data[row][column] != 2 && data[row][column] != 1){
+  document.getElementById("tab").rows[row-1].cells[column-1].innerHTML = "O";
+  document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "";
+  data[row][column] = 2;
+  if(!checkO(row, column))updatePlayer();
+ gameOver();
+}
+}
+function updateScore(){
+  if(clickCount == 0){
+    player1Score++;
+    document.getElementById("pl1").innerHTML = "<td>"+player1Score+"</td>";
+  }else{
+    player2Score++;
+    document.getElementById('pl2').innerHTML = "<td>"+player2Score+"</td>";
+  }
+}
+function updatePlayer(){
+  if(clickCount == 0){
+    clickCount=1;
+    document.getElementById("bb").style.color = "#126ae6";
+    document.getElementById("aa").style.color = "white";
+    for(var c = 1; c<9; c++){
+      for(var d = 1; d<9; d++){
+        document.getElementById("tab").rows[c-1].cells[d-1].style.backgroundColor = "";
+        document.getElementById("tab").rows[c-1].cells[d-1].style.color = "white";
+      }
+    }
+  }
+  else {
+      clickCount=0;
+      document.getElementById("aa").style.color = "#126ae6";
+      document.getElementById("bb").style.color = "white";
+      for(var c = 1; c<9; c++){
+        for(var d = 1; d<9; d++){
+          document.getElementById("tab").rows[c-1].cells[d-1].style.backgroundColor = "";
+          document.getElementById("tab").rows[c-1].cells[d-1].style.color = "white";
+        }
+      }
+  }
+}
+function checkO(row,column){
+  var s = false;
+    if((data[row-1][column-1] == 1 && data[row+1][column+1] == 1)){
+      updateScore();
+      document.getElementById("tab").rows[row-2].cells[column-2].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-2].cells[column-2].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row].cells[column].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+      document.getElementById("tab").rows[row].cells[column].style.color = "black"
+      s=true;
+    }
+    if(data[row-1][column+1] == 1 && data[row+1][column-1] == 1){
+        updateScore();
+        document.getElementById("tab").rows[row-2].cells[column].style.backgroundColor = "#A9A9A9";
+        document.getElementById("tab").rows[row].cells[column-2].style.backgroundColor = "#A9A9A9";
+        document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+        document.getElementById("tab").rows[row-2].cells[column].style.color = "black";
+        document.getElementById("tab").rows[row].cells[column-2].style.color = "black";
+        document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+        s=true;
+        s=true;
+    }
+    if(data[row-1][column] == 1 && data[row+1][column] == 1){
+      updateScore();
+      document.getElementById("tab").rows[row-2].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-2].cells[column-1].style.color = "black";
+      document.getElementById("tab").rows[row].cells[column-1].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+      s=true;
+    }
+    if(data[row][column-1] == 1 && data[row][column+1] == 1){
+      updateScore();
+        document.getElementById("tab").rows[row-1].cells[column-2].style.backgroundColor = "#A9A9A9";
+        document.getElementById("tab").rows[row-1].cells[column].style.backgroundColor = "#A9A9A9";
+        document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+        document.getElementById("tab").rows[row-1].cells[column-2].style.color = "black";
+        document.getElementById("tab").rows[row-1].cells[column].style.color = "black";
+        document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+      s=true;
+    }
+    return s;
+
+}
+function checkS(){
+  var s = false;
+    if((data[row-1][column-1] != 0 && data[row-1][column-1] == 2) && (data[row-2][column-2] != 0 && data[row-2][column-2] == 1)){
+      updateScore();
+      s = true;
+      document.getElementById("tab").rows[row-2].cells[column-2].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-3].cells[column-3].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-2].cells[column-2].style.color = "black";
+      document.getElementById("tab").rows[row-3].cells[column-3].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+    }
+    if((data[row-1][column] != 0 && data[row-1][column] == 2)&&(data[row-2][column] != 0 && data[row-2][column] == 1)){
+      updateScore();
+      s = true;
+      document.getElementById("tab").rows[row-2].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-3].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-2].cells[column-1].style.color = "black";
+      document.getElementById("tab").rows[row-3].cells[column-1].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+    }
+    if((data[row-1][column+1] != 0 && data[row-1][column+1] == 2) && (data[row-2][column+2] != 0 && data[row-2][column+2] == 1)){
+      updateScore();
+      s = true;
+      document.getElementById("tab").rows[row-2].cells[column].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-3].cells[column+1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-2].cells[column].style.color = "black";
+      document.getElementById("tab").rows[row-3].cells[column+1].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+    }
+    if((data[row][column+1] != 0 && data[row][column+1] == 2) && (data[row][column+2] != 0 && data[row][column+2] == 1)){
+      updateScore();
+      s = true;
+      document.getElementById("tab").rows[row-1].cells[column].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column+1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column+1].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+    }
+    if((data[row+1][column+1] != 0 && data[row+1][column+1] == 2) && (data[row+2][column+2] != 0 && data[row+2][column+2] == 1)){
+      updateScore();
+      s = true;
+      document.getElementById("tab").rows[row].cells[column].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row+1].cells[column+1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row].cells[column].style.color = "black";
+      document.getElementById("tab").rows[row+1].cells[column+1].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+    }
+    if((data[row+1][column] != 0 && data[row+1][column] == 2) && (data[row+2][column] != 0 && data[row+2][column] == 1)){
+      updateScore();
+      s = true;
+      document.getElementById("tab").rows[row].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row+1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row].cells[column-1].style.color = "black";
+      document.getElementById("tab").rows[row+1].cells[column-1].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+    }
+    if((data[row+1][column-1] != 0 && data[row+1][column-1] == 2) && (data[row+2][column-2] != 0 && data[row+2][column-2] == 1)){
+      updateScore();
+      s = true;
+      document.getElementById("tab").rows[row].cells[column-2].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row+1].cells[column-3].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+      document.getElementById("tab").rows[row].cells[column-2].style.color = "black";
+      document.getElementById("tab").rows[row+1].cells[column-3].style.color = "black";
+      document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+    }
+    if((data[row][column-1] != 0 && data[row][column-1] == 2) && (data[row][column-2] != 0 && data[row][column-2] == 1)){
+        updateScore();
+        s = true;
+        document.getElementById("tab").rows[row-1].cells[column-2].style.backgroundColor = "#A9A9A9";
+        document.getElementById("tab").rows[row-1].cells[column-3].style.backgroundColor = "#A9A9A9";
+        document.getElementById("tab").rows[row-1].cells[column-1].style.backgroundColor = "#A9A9A9";
+        document.getElementById("tab").rows[row-1].cells[column-2].style.color = "black";
+        document.getElementById("tab").rows[row-1].cells[column-3].style.color = "black";
+        document.getElementById("tab").rows[row-1].cells[column-1].style.color = "black";
+    }
+    return s;
+}
+function gameOver(){
+      var game=0;
+      for(var i = 1; i<9;i++){
+        for(var j = 1;j<9;j++){
+          if(data[i][j]==0){
+            game++;
+          }
+        }
+      }
+
+      if(game==0){
+        if(player1Score>player2Score){
+          document.getElementById("tab").innerHTML = "<b>PLAYER 1 WON</b>";
+          document.getElementById("S").style.display = "none";
+          document.getElementById("O").style.display = "none";
+          //alert("Player 1 won the game \n Score:"+player1Score);
+
+        }else
+          if(player1Score<player2Score){
+            document.getElementById("tab").innerHTML = "<b>PLAYER 2 WON</b>";
+            document.getElementById("S").style.display = "none";
+              document.getElementById("O").style.display = "none";
+        }else{
+            document.getElementById("tab").innerHTML = "<b>GAME DRAW</b";
+            document.getElementById("S").style.display = "none";
+              document.getElementById("O").style.display = "none";
+
+          }
+      }
+}
+</script>
+</html>
